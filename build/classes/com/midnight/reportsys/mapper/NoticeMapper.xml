@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.midnight.reportsys.mapper.NoticeMapper">
+
+
+	
+	<!-- 添加公告信息 -->
+	<insert id="addNotice" parameterType="notice">
+		insert into notice(id,content,createTime,type) values(#{id},#{content},#{createTime},#{type})
+	</insert>
+	
+	<!-- 获取指定类型的公告信息 -->
+	<select id="findNotice" parameterType="String" resultType="notice">
+	select * from notice where type = #{type}  ORDER BY id desc LIMIT 0,2
+	</select>
+</mapper>

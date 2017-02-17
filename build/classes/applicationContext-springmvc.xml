@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+	
+	<!-- 静态资源访问 -->
+	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/jquery-easyui/" mapping="/jquery-easyui/**" />
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/images/" mapping="/images/**" />
+	
+	<!-- 开启spring的注解扫描功能 -->
+	<context:component-scan base-package="com.midnight.reportsys.controller,
+										  com.midnight.reportsys.listener,
+										  com.midnight.reportsys.exception"></context:component-scan>
+
+	<!-- 开启aop，对类代理 -->
+	<aop:config proxy-target-class="true"></aop:config>
+	
+	<!-- 允许spring使用注解
+	<mvc:annotation-driven />  -->
+	
+	<!-- 注解处理器映射器 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+	</bean>
+
+
+	<!-- 注解适配器 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+
+	</bean>
+	
+	<!-- 配置视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/page/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	
+	<!-- 上传文件 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 使用utf-8编码 -->
+		<property name="defaultEncoding" value="utf-8" />
+		<!-- 上传文件大小最大为5M -->
+		<property name="maxUploadSize" value="5242880" />
+		<!-- 上传文件超出这个大小就会用于创建临时文件存储，而不使用内存存储   -->
+		<property name="maxInMemorySize" value="40960" />
+	</bean>
+</beans>

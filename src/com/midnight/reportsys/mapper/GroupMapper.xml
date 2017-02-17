@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.midnight.reportsys.mapper.GroupMapper">
+
+
+	<!-- 添加分组 -->
+	<insert id="addGroup" parameterType="groups">
+		insert into
+		groups(name,leader,member,ids) values(#{name},#{leader},#{member},#{ids})
+	</insert>
+
+	<!-- 查询全部分组 -->
+	<select id="findAllGroup" resultType="groups">
+		select * from groups
+	</select>
+	
+	<!-- 获取分组数量 -->
+	<select id="getGroupCount" resultType="int">
+		select count(*) from groups
+	</select>
+	
+	<!-- 查询用户所在的小组 -->
+	<select id="findMyGroups" parameterType="String" resultType="groups">
+		select * from groups where ids like ${id}
+	</select>
+</mapper>

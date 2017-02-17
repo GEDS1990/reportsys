@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.midnight.reportsys.mapper.ReportMapper">
+	<!--  保存报表信息 -->
+	<insert id="saveReport" parameterType="report">
+		insert into report(id,name,type,url,createTime,userId,downloadUrl) 
+					values(#{id},#{name},#{type},#{url},#{createTime},#{userId},#{downloadUrl})
+	</insert>
+	
+	
+	<!-- 根据类型和用户id获取报表列表 -->
+	<select id="getReportList" resultType="report">
+		select * from report where type=#{type} and userId=#{userId} ORDER BY createTime desc
+	</select>
+	
+	<!-- 根据类型获取报表列表 -->
+	<select id="getAllReportList"  parameterType="String"  resultType="report">
+		select * from report where type=#{type} ORDER BY createTime desc
+	</select>
+	
+	<!-- 根据类型和用户id获取报表数量 -->
+	<select id="getReportCount" resultType="int">
+		select count(*) from report where type=#{type} and userId=#{userId}
+	</select>
+	
+	<!-- 根据类型获取报表数量 -->
+	<select id="getAllReportCount" parameterType="String"  resultType="int">
+		select count(*) from report where type=#{type} 
+	</select>
+	
+	
+	<!-- 根据id获取report对象 -->
+	<select id="getReportById" parameterType="String" resultType="report">
+		select * from report where id=#{id}
+	</select>
+	
+	<!-- 根据id删除报表 -->
+	<delete id="deleteReportById" parameterType="String">
+		delete from report where id=#{id}
+	</delete>
+	
+	<!-- 统计日或周报表的数量 -->
+	<select id="getDailyOrWeeklyCount" resultType="int">
+		select count(*) from report where type=#{type} and name like ${time}
+	</select>
+</mapper>
