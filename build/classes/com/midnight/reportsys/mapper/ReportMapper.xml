@@ -43,4 +43,15 @@
 	<select id="getDailyOrWeeklyCount" resultType="int">
 		select count(*) from report where type=#{type} and name like ${time}
 	</select>
+	
+	
+	<!-- 根据用户名进行模糊查询 -->
+	<select id="getReportListByName" parameterType="String" resultType="report">
+		select * FROM report where name like ${name}
+	</select>
+	
+	<!--根据用户名进行模糊查询得到的数量 -->
+	<select id="getCountReportListByName" parameterType="String" resultType="int">
+		select count(*) FROM report where name like ${name}
+	</select>
 </mapper>

@@ -63,6 +63,9 @@ public class UserController {
 			// 获取用户的权限菜单,
 			for (int i = 0; i < roles.size(); i++) {
 				Role role = roles.get(i);
+				if(role.getName().equals("管理员")){
+					session.setAttribute("admin", "admin");
+				}
 				ArrayList<Permission> lists = role.getPermissions();
 				for (Permission p : lists) {
 					if (p.getPid() == 0) {
@@ -76,10 +79,10 @@ public class UserController {
 			model.addAttribute("user", user);
 			model.addAttribute("parentMenu", parentMenu);
 			model.addAttribute("childMenu", childMenu);
-
+			return "main";
 		}
 
-		return "main";
+		return "redirect:/user/login";
 	}
 
 	@RequestMapping("/checkUser")
@@ -90,7 +93,6 @@ public class UserController {
 		user.setPassword(password);
 		// 从数据库中获取用户
 		user = userService.getUserByAccountAndPass(user);
-
 		if (user != null) {
 			session.setAttribute("user", user);
 			return "redirect:/user/main";

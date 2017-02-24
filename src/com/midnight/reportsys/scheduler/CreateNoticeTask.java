@@ -17,9 +17,8 @@ import com.midnight.reportsys.util.DateTimeUtil;
  */
 public class CreateNoticeTask {
 	
-	@Autowired
-	private NoticeService noticeService;
-	public void execute_dailyReport(){
+
+	public Notice execute_dailyReport(){
 		try {
 			Properties pps = new Properties();
 			InputStream in = this.getClass().getResourceAsStream("/resource.properties");
@@ -33,14 +32,16 @@ public class CreateNoticeTask {
 			notice.setContent(content.trim());
 			notice.setCreateTime(DateTimeUtil.getDateAndTime());
 			notice.setType("daily");
-			noticeService.addNotice(notice);
+			
+			return notice;
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		return null;
 	}
-	public void execute_weeklyReport(){
+	public Notice execute_weeklyReport(){
 		try {
 			Properties pps = new Properties();
 			InputStream in = this.getClass().getResourceAsStream("/resource.properties");
@@ -54,12 +55,13 @@ public class CreateNoticeTask {
 			notice.setContent(content.trim());
 			notice.setCreateTime(DateTimeUtil.getDateAndTime());
 			notice.setType("weekly");
-			noticeService.addNotice(notice);
-			
+
+			return notice;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	

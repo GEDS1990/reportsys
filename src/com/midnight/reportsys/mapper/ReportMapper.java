@@ -30,4 +30,11 @@ public interface ReportMapper {
 	
 	//统计日或周报表的数量 
 	int getDailyOrWeeklyCount(@Param("type")String type,@Param("time") String time) throws Exception;
+
+	//根据用户名进行模糊查询
+	List<Report> getReportListByName(@Param("name") String name);
+	
+	//根据用户名进行模糊查询得到的数量
+	int getCountReportListByName(@Param("name") String name);
+	
 }

@@ -24,10 +24,12 @@
 
 </head>
 <body>
+	
 
-	<hr />
-	<hr />
-	<hr />
+	<br />
+
+
+
 
 	<table id="tt" style="width: 100%; height: 500px">
 
@@ -36,21 +38,45 @@
 				<th field="name" width="300">名称</th>
 				<th field="createTime" width="240">上传时间</th>
 				<th field="downloadUrl" width="240">下载</th>
-				
+
 			</tr>
 		</thead>
 
 	</table>
-	<a href="report/downloadReport/daily?id=15">下载15</a>
+
 	<div id="tb">
 		<div>
-			<a class="easyui-linkbutton" iconCls="icon-download" plain="true"
-				onclick="downloadReport()">下载报表</a>
-
+			<!-- <a class="easyui-linkbutton" iconCls="icon-download" plain="true"
+				onclick="downloadReport()">下载报表</a> -->
+			<input id="name" class="easyui-searchbox"
+				data-options="prompt:'Please Input Value',searcher:doSearch"
+				style="width: 300px"></input>
+			<script>
+			function doSearch(){
+				var reportName = $.trim($('#name').val());
+				reportName = "日报表_"+reportName;
+				
+				if(reportName != '' && reportName != null){
+					
+					$('#tt').datagrid({
+						url : 'report/getReportList/'+encodeURI(encodeURI(reportName)),
+						toolbar : '#tb',
+						pagination : true,
+						title : '报表列表',
+						fitColumns : false,
+						pagination : true,
+						iconCls : 'icon-save',
+						singleSelect : true,
+						pageList : [ 2, 5, 10, 15 ]
+					});
+				}
+				
+			}
+			</script>
 		</div>
 
 	</div>
 
-	
+
 </body>
 </html>

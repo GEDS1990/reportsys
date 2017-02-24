@@ -3,6 +3,7 @@ package com.midnight.reportsys.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.pagehelper.PageHelper;
@@ -25,6 +26,8 @@ public class UserServiceImpl implements UserService {
 
 	// 添加用户
 	public void addUser(User user, int roleId) throws Exception {
+		String md5pass = DigestUtils.md5Hex(user.getPassword());
+		user.setPassword(md5pass);
 		userMapper.addUser(user);// 添加用户信息到数据库
 		user = getUserByAccount(user.getAccount());// 从数据库获取用户id
 		addUserRole(user.getId(), roleId); // 给用户添加角色
@@ -70,7 +73,9 @@ public class UserServiceImpl implements UserService {
 
 	// 根据帐号和密码获取用户
 	public User getUserByAccountAndPass(User user) throws Exception {
-
+		String md5pass = DigestUtils.md5Hex(user.getPassword());
+		user.setPassword(md5pass);
+		
 		return userMapper.getUserByAccountAndPass(user);
 	}
 
@@ -93,7 +98,8 @@ public class UserServiceImpl implements UserService {
 	
 	//更改用户密码
 	public void updatePassword(String pass,int id)throws Exception{
-		userMapper.updatePassword(pass, id);
+		String md5pass = DigestUtils.md5Hex(pass);
+		userMapper.updatePassword(md5pass, id);
 	}
 
 	//删除用户

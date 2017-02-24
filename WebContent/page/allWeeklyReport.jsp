@@ -26,8 +26,7 @@
 <body>
 
 	<hr />
-	<hr />
-	<hr />
+
 
 	<table id="tt" style="width: 100%; height: 500px">
 
@@ -41,9 +40,37 @@
 
 	</table>
 	
-	<div id="tb">
-	
-		
+		<div id="tb">
+		<div>
+			<!-- <a class="easyui-linkbutton" iconCls="icon-download" plain="true"
+				onclick="downloadReport()">下载报表</a> -->
+			<input id="name" class="easyui-searchbox"
+				data-options="prompt:'Please Input Value',searcher:doSearch"
+				style="width: 300px"></input>
+			<script>
+			function doSearch(){
+				var reportName = $.trim($('#name').val());
+				reportName = "周报表_"+reportName;
+				
+				if(reportName != '' && reportName != null){
+					
+					$('#tt').datagrid({
+						url : 'report/getReportList/'+encodeURI(encodeURI(reportName)),
+						toolbar : '#tb',
+						pagination : true,
+						title : '报表列表',
+						fitColumns : false,
+						pagination : true,
+						iconCls : 'icon-save',
+						singleSelect : true,
+						pageList : [ 2, 5, 10, 15 ]
+					});
+				}
+				
+			}
+			</script>
+		</div>
+
 	</div>
 </body>
 </html>

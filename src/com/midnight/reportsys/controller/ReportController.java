@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
@@ -55,15 +56,17 @@ public class ReportController {
 			HttpSession session, HttpServletResponse response) throws Exception {
 		PrintWriter pw = response.getWriter();
 		Report report = new Report();
-		report.setId( UUID.randomUUID().toString());
+		report.setId(UUID.randomUUID().toString());
 		User user = (User) session.getAttribute("user");
 		if (user != null && reportUrl != null) {
 
 			// 获取截止时间，超过了截止时间就提交失败
 			Date deadline = reportService.getReportDeadline(type);
-			if (deadline.before(new Date())) {
-				pw.write("deadline");
-				return;
+			if (deadline != null) {
+				if (deadline.before(new Date())) {
+					pw.write("deadline");
+					return;
+				}
 			}
 
 			// 将报表文件上传,然后获得一个新名称作为路径
@@ -78,14 +81,18 @@ public class ReportController {
 				name = DateTimeUtil.getWeekDate() + "_周报表_" + user.getUsername() + url.substring(url.lastIndexOf("."));
 				report.setType(type);
 			}
+			if (type.equals("template")) {
+				name = reportUrl.getOriginalFilename();
+				report.setType(type);
+			}
 			report.setName(name);
 
 			String createTime = DateTimeUtil.getDateAndTime();
 			report.setCreateTime(createTime);
 			report.setUserId(user.getId());
-			String downloadUrl = "<a href=\"report/downloadReport/"+type+"?id="+report.getId()+"\">下载</a>"; 
+			String downloadUrl = "<a href=\"report/downloadReport/" + type + "?id=" + report.getId() + "\">下载</a>";
 			report.setDownloadUrl(downloadUrl);
-			
+
 			reportService.saveReport(report);
 			pw.write("true");
 
@@ -105,21 +112,23 @@ public class ReportController {
 			throws Exception {
 		int intPage = page == 0 ? 1 : page;
 		int number = rows == 0 ? 10 : rows;
+		String type2 = URLDecoder.decode(type, "UTF-8");
 
 		User user = (User) session.getAttribute("user");
-
+		if (user == null)
+			return "redirect:/user/login";
 		Map<String, Object> jsonMap = new HashMap<>();
 
-		List<Report> list = reportService.getReportList(intPage, number, type, user.getId());
+		List<Report> list = reportService.getReportList(intPage, number, type2, user.getId());
 
-		int total = reportService.getReportCount(type, user.getId());
+		int total = reportService.getReportCount(type2, user.getId());
 
 		jsonMap.put("total", total);
 		jsonMap.put("rows", list);
 
 		JsonConfig jsonConfig = Tools.getJsonConfig();
 		// 排除不需要转换的字段new String[]{"id", "type", "userId" }
-		jsonConfig.setExcludes(new String[] {"type", "userId" });
+		jsonConfig.setExcludes(new String[] { "type", "userId" });
 
 		JSONObject jsonObject = JSONObject.fromObject(jsonMap, jsonConfig);
 
@@ -137,6 +146,9 @@ public class ReportController {
 		}
 		if (type.equals("weekly")) {
 			filePath = "E:\\develop\\reportsys\\weeklyreport\\";
+		}
+		if (type.equals("template")) {
+			filePath = "E:\\develop\\reportsys\\template\\";
 		}
 
 		// 根据id获取将要下载的报表

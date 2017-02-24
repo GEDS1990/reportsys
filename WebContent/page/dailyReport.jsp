@@ -93,9 +93,6 @@
 
 	<br />
 
-	<hr />
-
-	<br />
 
 
 	<table id="tt" style="width: 100%; height: 500px">

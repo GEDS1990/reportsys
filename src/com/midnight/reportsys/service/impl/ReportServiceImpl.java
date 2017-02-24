@@ -44,6 +44,9 @@ public class ReportServiceImpl implements ReportService {
 		if (type.equals("weekly")) {
 			filePath = "E:\\develop\\reportsys\\weeklyreport\\";
 		}
+		if (type.equals("template")) {
+			filePath = "E:\\develop\\reportsys\\template\\";
+		}
 
 		// 获取上传文件名称
 		String originalFileName = uploadfile.getOriginalFilename();
@@ -82,12 +85,19 @@ public class ReportServiceImpl implements ReportService {
 			type = "daily";
 			PageHelper.startPage(intPage, number);
 			return reportMapper.getAllReportList(type);
-
+		}
+		if (type.equals("template")) {
+			// 获取所有模板
+			type = "template";
+			PageHelper.startPage(intPage, number);
+			return reportMapper.getAllReportList(type);
 		}
 
-		return null;
-
-	}
+		//其他情况属于 根据用户名进行模糊查询
+		String name = "'%" +type+"%'"; 
+		PageHelper.startPage(intPage, number);
+		return reportMapper.getReportListByName(name);
+}
 
 	// 获取报表数量
 	public int getReportCount(String type, int userId) throws Exception {
@@ -115,8 +125,18 @@ public class ReportServiceImpl implements ReportService {
 			type = "daily";
 			count = reportMapper.getAllReportCount(type);
 			break;
+			
+		case "template":
+			// 获取所有日报表
+			type = "template";
+			count = reportMapper.getAllReportCount(type);
+			break;
 
 		default:
+			//其他情况属于 根据用户名进行模糊查询
+			String name = "'%" +type+"%'"; 
+			count  = reportMapper.getCountReportListByName(name);
+			System.out.println(count);
 			break;
 		}
 		return count;
@@ -148,6 +168,8 @@ public class ReportServiceImpl implements ReportService {
 
 	// 获取指定类型报表截止时间
 	public Date getReportDeadline(String type) throws Exception {
+		if(type.equals("template"))
+			return null;
 		List<Notice> lists = noticeMapper.findNotice(type);
 		Notice notice = lists.get(0);
 		String s = notice.getContent().trim();
@@ -163,5 +185,7 @@ public class ReportServiceImpl implements ReportService {
 	public int getDailyOrWeeklyCount(String type, String time) throws Exception {
 		return reportMapper.getDailyOrWeeklyCount(type, time);
 	}
+
+
 
 }

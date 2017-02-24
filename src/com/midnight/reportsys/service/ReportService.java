@@ -26,10 +26,12 @@ public interface ReportService {
 
 	// 根据id删除报表
 	void deleteReportById(String id) throws Exception;
-	
-	//获取指定类型报表截止时间
+
+	// 获取指定类型报表截止时间
 	Date getReportDeadline(String type) throws Exception;
-	
-	//统计日或周报表的数量 
+
+	// 统计日或周报表的数量
 	int getDailyOrWeeklyCount(String type, String time) throws Exception;
+
+	
 }
