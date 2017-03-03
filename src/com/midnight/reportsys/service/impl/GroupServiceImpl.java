@@ -22,31 +22,43 @@ public class GroupServiceImpl implements GroupService{
 	
 	@Override
 	public void addGroup(Groups group) throws Exception {
-		String leader = group.getLeader();
-		String ids = leader;
-		//将id 变成 用户名
-		int userId = Integer.parseInt(leader);
+		String ids = "";
 		
-		User user = userMapper.getUserById(userId);
-		leader = user.getUsername();
+		//将id 变成 用户名
+		String leader = group.getLeader();
+		String[] leaders = leader.split(",");
+		StringBuffer sb1 = new StringBuffer();
+		for(String l : leaders){
+			ids += l+"," ;
+			int _userId = Integer.parseInt(l);
+			User _user = userMapper.getUserById(_userId);
+			String _username = _user.getUsername();
+			 sb1.append(_username+",");
+		}
+		String s1 = sb1.toString();
+		leader = s1.substring(0,s1.length()-1);
 		group.setLeader(leader);
+	
 		
 		//将id 变成 用户名
 		String member = group.getMember();
 		String[] members = member.split(",");
-		StringBuffer sb = new StringBuffer();
+		StringBuffer sb2 = new StringBuffer();
 		for(String m : members){
-			ids = ids + "," + m;
+			ids += m+"," ;
 			int _userId = Integer.parseInt(m);
 			User _user = userMapper.getUserById(_userId);
 			String _username = _user.getUsername();
-			 sb.append(_username+",");
+			 sb2.append(_username+",");
 		}
 		
-		String s = sb.toString();
-		member = s.substring(0,s.length()-1);
+		String s2 = sb2.toString();
+		member = s2.substring(0,s2.length()-1);
 		group.setMember(member);
-		group.setIds(ids);
+		
+		
+		group.setIds(ids.substring(0,ids.length()-1));
+		
 		groupMapper.addGroup(group);
 		
 	}

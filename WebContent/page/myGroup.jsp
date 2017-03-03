@@ -1,8 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
 
@@ -30,18 +29,19 @@
 
 
 
-	<table class="easyui-datagrid" style="width:1200px;height:600px"
-        data-options="url:'group/findMyGroups',fitColumns:true,singleSelect:true">
-    <thead>
-        <tr>
-            <th data-options="field:'name',width:150">小组名称</th>
-            <th data-options="field:'leader',width:200">组长</th>
-            <th data-options="field:'member',width:400">成员</th>
-        </tr>
-    </thead>
-</table>
+	<table class="easyui-datagrid" style="width: 100%; height: 100%"
+		data-options="url:'group/findMyGroups',fitColumns:true,singleSelect:true">
+		<thead>
+			<tr>
+				<th data-options="field:'name',width:150">小组名称</th>
+				<th data-options="field:'leader',width:200">组长</th>
+				<th data-options="field:'member',width:400">组员</th>
+			</tr>
+		</thead>
 
-	
+	</table>
+
+
 	
 </body>
 

@@ -1,7 +1,5 @@
 package com.midnight.reportsys.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.midnight.reportsys.mapper.NoticeMapper;
@@ -17,7 +15,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	// 获取指定类型的公告信息
-	public List<Notice> findNotice(String type)throws Exception{
+	public Notice findNotice(String type)throws Exception{
 			return noticeMapper.findNotice(type);
 	}
 }

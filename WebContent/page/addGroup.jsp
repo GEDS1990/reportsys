@@ -42,7 +42,7 @@
 
 				<tr>
 					<td>组&nbsp;&nbsp;长:</td>
-					<td><input id="cc1" class="easyui-combobox" name="leader"
+					<td><input id="cc1" class="easyui-combobox" name="leader" style="height: 40px"
 						data-options="required:true">
 
 					</td>
@@ -50,8 +50,8 @@
 
 				<tr>
 					<td>成&nbsp;&nbsp;员:</td>
-					<td><input id="cc2" class="easyui-combobox" name="member" style="height: 100px"
-						data-options="required:true,multiple:true,multiline:true,valueField:'id',textField:'username',url:'user/findUserList'">
+					<td><input id="cc2" class="easyui-combobox" name="member" style="height: 80px"
+						data-options="required:true,multiple:true,multiline:true,valueField:'id',textField:'username',url:'user/findMemberUserList'">
 
 					</td>
 				</tr>
@@ -67,7 +67,9 @@
 
 	<script  type="text/javascript">
 	$('#cc1').combobox({
-	    url:'user/findUserList',
+		multiple:true,
+		multiline:true,
+	    url:'user/findLeaderUserList',
 	    valueField:'id',
 	    textField:'username'
 	});
@@ -91,6 +93,7 @@
 					$.messager.progress('close');
 					
 					if(data==true||data=='true'){
+						clearForm();
 						$.messager.alert('消息','操作成功','info');
 	
 					}

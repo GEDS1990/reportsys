@@ -16,10 +16,6 @@
 
 
 
-	<listener>
-		<listener-class>com.midnight.reportsys.scheduler.StartTimerListener</listener-class>
-	</listener>
-
 	<!-- 配置springmvc作为前端控制器 -->
 	<servlet>
 		<servlet-name>springmvc</servlet-name>

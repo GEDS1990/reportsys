@@ -61,13 +61,13 @@ public class ReportController {
 		if (user != null && reportUrl != null) {
 
 			// 获取截止时间，超过了截止时间就提交失败
-			Date deadline = reportService.getReportDeadline(type);
+		/*	Date deadline = reportService.getReportDeadline(type);
 			if (deadline != null) {
 				if (deadline.before(new Date())) {
 					pw.write("deadline");
 					return;
 				}
-			}
+			}*/
 
 			// 将报表文件上传,然后获得一个新名称作为路径
 			String url = reportService.saveFileupload(reportUrl, type);

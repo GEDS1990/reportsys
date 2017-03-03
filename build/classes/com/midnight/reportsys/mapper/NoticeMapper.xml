@@ -11,6 +11,6 @@
 	
 	<!-- 获取指定类型的公告信息 -->
 	<select id="findNotice" parameterType="String" resultType="notice">
-	select * from notice where type = #{type}  ORDER BY createTime desc LIMIT 0,2
+	select * from notice where type = #{type}  ORDER BY createTime desc LIMIT 0,1
 	</select>
 </mapper>

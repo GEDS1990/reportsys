@@ -1,2 +1,9 @@
 /System/
+/applicationContext-dao.xml
+/applicationContext-service.xml
+/applicationContext-springmvc.xml
+/applicationContext-transation.xml
 /com/
+/db.properties
+/mybatis-sqlMapConfig.xml
+/resource.properties

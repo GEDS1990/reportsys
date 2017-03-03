@@ -10,5 +10,5 @@ public interface NoticeMapper {
 	void addNotice(Notice notice) throws Exception;
 	
 	// 获取指定类型的公告信息
-	List<Notice> findNotice(String type)throws Exception;
+	Notice findNotice(String type)throws Exception;
 }

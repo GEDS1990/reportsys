@@ -5,6 +5,8 @@ import java.util.Properties;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import com.midnight.reportsys.pojo.Notice;
 import com.midnight.reportsys.service.NoticeService;
@@ -15,10 +17,15 @@ import com.midnight.reportsys.util.DateTimeUtil;
  * @author Administrator
  *
  */
+@Component
 public class CreateNoticeTask {
+	@Autowired
+	private NoticeService noticeService;
 	
-
-	public Notice execute_dailyReport(){
+	
+	//每个周一、周二、周三、周四、周五的10：15触发 
+	@Scheduled(cron="0 15 8 ? * MON-FRI")
+	public void execute_dailyReport(){
 		try {
 			Properties pps = new Properties();
 			InputStream in = this.getClass().getResourceAsStream("/resource.properties");
@@ -32,16 +39,17 @@ public class CreateNoticeTask {
 			notice.setContent(content.trim());
 			notice.setCreateTime(DateTimeUtil.getDateAndTime());
 			notice.setType("daily");
-			
-			return notice;
+			noticeService.addNotice(notice);
+		
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return null;
+		
 	}
-	public Notice execute_weeklyReport(){
+	@Scheduled(cron="0 29 8 ? * MON")
+	public void execute_weeklyReport(){
 		try {
 			Properties pps = new Properties();
 			InputStream in = this.getClass().getResourceAsStream("/resource.properties");
@@ -55,14 +63,15 @@ public class CreateNoticeTask {
 			notice.setContent(content.trim());
 			notice.setCreateTime(DateTimeUtil.getDateAndTime());
 			notice.setType("weekly");
-
-			return notice;
+			noticeService.addNotice(notice);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return null;
+		
 	}
 
+	
 	
 }

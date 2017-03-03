@@ -27,7 +27,8 @@
 	<!-- 为用户分配角色 -->
 	<insert id="addUserRole">
 		INSERT INTO user_role (userId, roleId)
-		VALUES (#{userId}, #{roleId});
+		VALUES
+		(#{userId}, #{roleId});
 	</insert>
 
 	<!--获取用户数量 -->
@@ -45,7 +46,7 @@
 		select *
 		from user where id = #{id}
 	</select>
-	
+
 	<!-- 根据用户account获取用户 -->
 	<select id="getUserByAccount" parameterType="String" resultType="user">
 		select *
@@ -62,25 +63,62 @@
 	<select id="getPermissionsByRoleId" parameterType="int"
 		resultType="permission">
 		select p.id,p.name,p.iconCls,p.url,p.pid from
-		role r,permission p ,role_permission rp
-		where r.id =#{roleId} and r.id=rp.roleId and rp.permissionId=p.id ORDER BY sort
+		role
+		r,permission p ,role_permission rp
+		where r.id =#{roleId} and
+		r.id=rp.roleId and rp.permissionId=p.id ORDER BY sort
 	</select>
-	
-	<!-- 获取需要提交报表成员的数量  -->
+
+	<!-- 获取需要提交报表成员的数量 -->
 	<select id="getReportMemberCount" resultType="int">
-		select count(*) from
-		(select account,username,name from user u,user_role ur,role r where  u.id=ur.userId and ur.roleId=r.id GROUP BY account) aaa
-		where name='项目组长' or name='项目成员'
+		select count(*)
+		from
+		(select account,username,name from user u,user_role ur,role r
+		where u.id=ur.userId and ur.roleId=r.id GROUP BY account) aaa
+		where
+		name='项目组长' or name='项目成员'
 	</select>
 	
+	<!-- 获取需要提交报表成员 -->
+	<select id="findMemberUser" resultType="user">
+		SELECT *
+		FROM
+		(SELECT u.`id`,account,username,NAME FROM USER u,user_role
+		ur,role r
+		WHERE u.id=ur.userId AND ur.roleId=r.id GROUP BY account) aaa
+		WHERE
+		NAME='项目组长' OR NAME='项目成员'
+	</select>
+
 	<!-- 更改用户密码 -->
 	<update id="updatePassword">
-		update user set password=#{pass} where id=#{id} 
+		update user set password=#{pass} where id=#{id}
 	</update>
-	
+
 	<!-- 删除用户 -->
 	<delete id="deleteUser" parameterType="int">
-		delete user from user where id=#{id}
+		delete user from user
+		where id=#{id}
 	</delete>
-	
+
+	<!-- 获取成员角色的用户列表 -->
+	<select id="findMemberUserList" resultType="user">
+		SELECT
+		u.id,u.username FROM USER u ,user_role ur, role r
+		WHERE
+		u.`id`=ur.`userId` AND ur.`roleId` = r.`id` AND ur.`roleId`=4
+	</select>
+	<!-- 获取组长或者管理角色的用户列表 -->
+	<select id="findLeaderUserList" resultType="user">
+		SELECT
+		l.id,l.username FROM (
+		SELECT u.id,u.username
+		,ur.roleId, r.name FROM
+		USER u ,user_role ur, role r
+		WHERE
+		u.`id`=ur.`userId` AND ur.`roleId` =
+		r.`id`) l WHERE l.roleId=2
+		OR
+		l.roleId = 3
+	</select>
 </mapper>

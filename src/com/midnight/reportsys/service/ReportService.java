@@ -3,7 +3,6 @@ package com.midnight.reportsys.service;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.midnight.reportsys.pojo.Report;
@@ -33,5 +32,7 @@ public interface ReportService {
 	// 统计日或周报表的数量
 	int getDailyOrWeeklyCount(String type, String time) throws Exception;
 
-	
+	// 根据用户id 和 类型 获取报表集合
+	public List<Report> findReportListByUserIdAndType(int userId, String type) throws Exception;
+
 }

@@ -3,7 +3,6 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 	
-	
 	<bean id="userService" class="com.midnight.reportsys.service.impl.UserServiceImpl"></bean>
 	<bean id="reportService" class="com.midnight.reportsys.service.impl.ReportServiceImpl"></bean>
 	<bean id="groupService" class="com.midnight.reportsys.service.impl.GroupServiceImpl"></bean>

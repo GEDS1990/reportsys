@@ -49,12 +49,15 @@
 			<!-- <a class="easyui-linkbutton" iconCls="icon-download" plain="true"
 				onclick="downloadReport()">下载报表</a> -->
 			<input id="name" class="easyui-searchbox"
-				data-options="prompt:'Please Input Value',searcher:doSearch"
+				data-options="prompt:'请输入姓名',searcher:doSearch"
 				style="width: 300px"></input>
 			<script>
 			function doSearch(){
 				var reportName = $.trim($('#name').val());
-				reportName = "日报表_"+reportName;
+				if(reportName.length == 0){
+					$.messager.alert('消息','请输入姓名','info');
+				}
+				reportName = "_日报表_"+reportName;
 				
 				if(reportName != '' && reportName != null){
 					

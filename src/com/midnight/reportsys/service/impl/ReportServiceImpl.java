@@ -2,6 +2,7 @@ package com.midnight.reportsys.service.impl;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -136,7 +137,6 @@ public class ReportServiceImpl implements ReportService {
 			//其他情况属于 根据用户名进行模糊查询
 			String name = "'%" +type+"%'"; 
 			count  = reportMapper.getCountReportListByName(name);
-			System.out.println(count);
 			break;
 		}
 		return count;
@@ -170,8 +170,8 @@ public class ReportServiceImpl implements ReportService {
 	public Date getReportDeadline(String type) throws Exception {
 		if(type.equals("template"))
 			return null;
-		List<Notice> lists = noticeMapper.findNotice(type);
-		Notice notice = lists.get(0);
+		Notice notice = noticeMapper.findNotice(type);
+		
 		String s = notice.getContent().trim();
 		String s1 = s.substring(0, 10);
 		String s2 = s.substring(23, 31);
@@ -186,6 +186,9 @@ public class ReportServiceImpl implements ReportService {
 		return reportMapper.getDailyOrWeeklyCount(type, time);
 	}
 
-
+	//根据用户id 和 类型 获取报表集合
+	public List<Report> findReportListByUserIdAndType(int userId, String type) throws Exception{
+		return reportMapper.getReportList(type, userId);
+	}
 
 }

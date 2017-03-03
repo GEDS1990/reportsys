@@ -1,8 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
 
@@ -30,20 +29,32 @@
 
 
 
-	<table id="tt" style="width: 100%; height: 500px">
-
+	<table class="easyui-datagrid" style="width: 100%; height: 20%"
+		data-options="url:'group/findMyGroups',fitColumns:true,singleSelect:true">
 		<thead>
 			<tr>
-				<th field="id" width="100">序号</th>
-				<th field="name" width="100">小组名称</th>
-				<th field="leader" width="200">组长</th>
-				<th field="member" width="300">成员</th>
+				<th data-options="field:'name',width:150">小组名称</th>
+				<th data-options="field:'leader',width:200">组长</th>
+				<th data-options="field:'member',width:400">组员</th>
 			</tr>
 		</thead>
+
 	</table>
 
-	
-	
+
+	<table class="easyui-datagrid" style="width: 100%; height: 80%"
+		data-options="url:'group/findMyGroupsReport',fitColumns:true,singleSelect:true">
+		<thead>
+			<tr>
+				<th data-options="field:'role',width:150"></th>
+				<th data-options="field:'name',width:200"></th>
+				<th data-options="field:'daily',width:200"></th>
+					<th data-options="field:'weekly',width:200"></th>
+			</tr>
+		</thead>
+
+	</table>
+
 </body>
 
 

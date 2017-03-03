@@ -40,12 +40,22 @@ public interface UserMapper {
 	// 根据帐号和密码获取用户
 	User getUserByAccountAndPass(User user) throws Exception;
 
-	//获取需要提交报表成员的数量 
-	int getReportMemberCount()throws Exception;
-	
-	//更改用户密码
-	void updatePassword(@Param("pass")String pass,@Param("id")int id)throws Exception;
+	// 获取需要提交报表成员的数量
+	int getReportMemberCount() throws Exception;
 
-	//删除用户
+	// 更改用户密码
+	void updatePassword(@Param("pass") String pass, @Param("id") int id) throws Exception;
+
+	// 删除用户
 	void deleteUser(int id);
+
+	// 获取成员角色的用户列表
+	List<User> findMemberUserList();
+	
+	//获取组长或者管理角色的用户列表 
+	List<User> findLeaderUserList();
+	
+	//需要提交报表的成员
+	List<User> findMemberUser();
+	 
 }

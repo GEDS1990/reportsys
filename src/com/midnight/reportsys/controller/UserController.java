@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,8 +55,8 @@ public class UserController {
 	public String main(HttpSession session, Model model) throws Exception {
 		User user = (User) session.getAttribute("user");
 		if (user != null) {
-			ArrayList<Permission> parentMenu = new ArrayList<>();
-			ArrayList<Permission> childMenu = new ArrayList<>();
+			Set<Permission> parentMenu = new TreeSet<>();
+			Set<Permission> childMenu = new TreeSet<>();
 
 			// 获取用户的角色
 			ArrayList<Role> roles = userService.getRoleByUserId(user.getId());
@@ -69,6 +69,8 @@ public class UserController {
 				ArrayList<Permission> lists = role.getPermissions();
 				for (Permission p : lists) {
 					if (p.getPid() == 0) {
+					
+						
 						parentMenu.add(p);// 父菜单
 					} else {
 						childMenu.add(p);// 子菜单
@@ -103,7 +105,7 @@ public class UserController {
 
 	// 添加用户
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public void addUser(@RequestParam("roleId") int roleId, User user, HttpServletResponse response) throws Exception {
+	public void addUser(@RequestParam("roleId") String roleId, User user, HttpServletResponse response) throws Exception {
 		PrintWriter pw = response.getWriter();
 		if (ValidateUtil.isValid(user.getAccount())) {
 			User sqluser = userService.getUserByAccount(user.getAccount());
@@ -130,6 +132,7 @@ public class UserController {
 		List<User> list = userService.getUserList(intPage, number);
 		int total = userService.getUserCount();
 
+		
 		jsonMap.put("total", total);
 		jsonMap.put("rows", list);
 
@@ -200,4 +203,49 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * 获取成员角色用户列表
+	 * @param response
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findMemberUserList", method = RequestMethod.POST, produces = {
+	"application/json;charset=UTF-8" })
+	public String findMemberUserList(HttpServletResponse response, HttpServletRequest request) throws Exception {
+
+		List<User> users = userService.findMemberUserList();
+
+		Map<String, Object> jsonMap = new HashMap<>();
+		jsonMap.put("users", users);
+		JsonConfig jsonConfig = Tools.getJsonConfig();
+		// 排除不需要转换的字段new String[]{“id”，“name”}
+		jsonConfig.setExcludes(new String[] { });
+		JSONObject jsonObject = JSONObject.fromObject(jsonMap, jsonConfig);
+		return jsonObject.getString("users");
+	}
+
+	/**
+	 * 获取组长角色用户列表
+	 * @param response
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findLeaderUserList", method = RequestMethod.POST, produces = {
+	"application/json;charset=UTF-8" })
+	public String findLeaderUserList(HttpServletResponse response, HttpServletRequest request) throws Exception {
+
+		List<User> users = userService.findLeaderUserList();
+
+		Map<String, Object> jsonMap = new HashMap<>();
+		jsonMap.put("users", users);
+		JsonConfig jsonConfig = Tools.getJsonConfig();
+		// 排除不需要转换的字段new String[]{“id”，“name”}
+		jsonConfig.setExcludes(new String[] { });
+		JSONObject jsonObject = JSONObject.fromObject(jsonMap, jsonConfig);
+		return jsonObject.getString("users");
+	}
 }

@@ -43,10 +43,12 @@ public class NoticeController {
 	public String findNotice(HttpSession session) throws Exception {
 
 		Map<String, Object> jsonMap = new HashMap<>();
-		List<Notice> listDaily = noticeService.findNotice("daily");
-		List<Notice> listWeekly = noticeService.findNotice("weekly");
-		listDaily.addAll(listWeekly);
-		jsonMap.put("rows", listDaily);
+		Notice notice1 = noticeService.findNotice("daily");
+		Notice notice2 = noticeService.findNotice("weekly");
+		ArrayList<Notice> notices = new ArrayList<>();
+		notices.add(notice1);
+		notices.add(notice2);
+		jsonMap.put("rows", notices);
 
 		JsonConfig jsonConfig = Tools.getJsonConfig();
 		// 排除不需要转换的字段new String[]{“id”，“name”}
