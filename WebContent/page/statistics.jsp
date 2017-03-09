@@ -56,9 +56,10 @@
 				fitColumns : false,
 				pagination : true,
 				iconCls : 'icon-save',
-				singleSelect : true
+				singleSelect : true,
+				pageList:[2,5,10,15]
 			});
-			 //设置分页控件 
+			/*  //设置分页控件 
 		    var p = $('#tt').datagrid('getPager'); 
 		    $(p).pagination({ 
 		        pageSize: 10,//每页显示的记录条数，默认为10 
@@ -67,7 +68,7 @@
 		        afterPageText: '页    共 {pages} 页', 
 		        displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录', 
 		        
-		    }); 
+		    });  */
 		});
 	</script>
 </body>

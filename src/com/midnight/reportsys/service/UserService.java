@@ -63,4 +63,7 @@ public interface UserService {
 	
 	//需要提交报表的成员
 	List<UserDTO> findMemberUser(int intPage, int number);
+	
+	//需要提交报表的成员的數量
+	int findMemberUserCount() throws Exception;
 }

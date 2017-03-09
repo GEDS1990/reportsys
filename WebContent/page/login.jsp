@@ -18,11 +18,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="jquery-easyui/js/respond.min.js"></script>
 </head>
 <body>
+<div id="title1" style="margin-top: 8%;margin-left: 38%">
+<p><font size="6">欢迎使用报表管理系统</font></p>
+</div>
+	
 	<div id="login_area">
-		<div id="login_box">
-			<div id="login_picture">
+		<div id="login_box" style="margin-left: 35%;width:400px;">
+		<!-- 	<div id="login_picture">
 				<img src="images/login/background.jpg" />
-			</div>
+			</div> -->
 			<div id="login_form">
 				<form id="loginForm" method="post" action="user/checkUser" 
 					class="form-horizontal" role="form">

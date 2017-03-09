@@ -151,14 +151,15 @@
 
 
 
-	<table id="tt" style="width: 1112px; height: 400px">
+	<table id="tt" style="width:100%; height: 400px">
 
 		<thead>
 			<tr>
 
-				<th field="name" width="300">名称</th>
-				<th field="createTime" width="240">上传时间</th>
-				<th field="downloadUrl" width="240">下载</th>
+				<th field="name" width="30%">名称</th>
+				<th field="createTime" width="30%">上传时间</th>
+				<th field="downloadUrl" width="20%">下载</th>
+				<th field="preview" width="20%">查看</th>
 			</tr>
 		</thead>
 

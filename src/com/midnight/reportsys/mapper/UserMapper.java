@@ -57,5 +57,6 @@ public interface UserMapper {
 	
 	//需要提交报表的成员
 	List<User> findMemberUser();
+
 	 
 }

@@ -126,8 +126,9 @@ public class UserServiceImpl implements UserService {
 	
 	//需要提交报表的成员
 	public List<UserDTO> findMemberUser(int intPage, int number){
-		List<UserDTO> uDtos = new ArrayList<>();
+		PageHelper.startPage(intPage, number);
 		List<User> lUsers = userMapper.findMemberUser();
+		List<UserDTO> uDtos = new ArrayList<>();
 		for (int i = 0; i < lUsers.size(); ++i) {
 			User user = lUsers.get(i);
 			UserDTO userDTO = new UserDTO();
@@ -142,5 +143,12 @@ public class UserServiceImpl implements UserService {
 		
 		
 		return uDtos;
+	}
+	
+	//需要提交报表的成员的数量
+	public int findMemberUserCount() throws Exception{
+		
+		return userMapper.getReportMemberCount();
+		
 	}
 }

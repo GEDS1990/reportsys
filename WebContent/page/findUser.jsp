@@ -30,7 +30,7 @@
 
 
 
-	<table id="tt" style="width: 100%; height: 500px">
+	<table id="tt" style="width: 100%; height: 100%">
 
 		<thead>
 			<tr>

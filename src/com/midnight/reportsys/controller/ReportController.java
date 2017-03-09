@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.midnight.reportsys.dto.ReportDTO;
 import com.midnight.reportsys.pojo.Report;
 import com.midnight.reportsys.pojo.User;
 import com.midnight.reportsys.service.ReportService;
@@ -61,13 +62,13 @@ public class ReportController {
 		if (user != null && reportUrl != null) {
 
 			// 获取截止时间，超过了截止时间就提交失败
-		/*	Date deadline = reportService.getReportDeadline(type);
+			Date deadline = reportService.getReportDeadline(type);
 			if (deadline != null) {
 				if (deadline.before(new Date())) {
 					pw.write("deadline");
 					return;
 				}
-			}*/
+			}
 
 			// 将报表文件上传,然后获得一个新名称作为路径
 			String url = reportService.saveFileupload(reportUrl, type);
@@ -119,7 +120,7 @@ public class ReportController {
 			return "redirect:/user/login";
 		Map<String, Object> jsonMap = new HashMap<>();
 
-		List<Report> list = reportService.getReportList(intPage, number, type2, user.getId());
+		List<ReportDTO> list = reportService.getReportList(intPage, number, type2, user.getId());
 
 		int total = reportService.getReportCount(type2, user.getId());
 

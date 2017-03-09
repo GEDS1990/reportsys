@@ -11,34 +11,33 @@ body{
 }
 #login_box {
 	position:absolute;
-	width: 1000px;
+	width:400px;
 	height: 350px;
-	margin:0 auto;
-	top:100px;
-	left:200px;
+
+	margin-left: 35%;
 	background-color:white;
 	border:solid 2px #ccc;
 	border-radius:20px;
 	box-shadow: 10px 10px 5px #ccc;
 }
 #login_picture{	
-	width:600px;
+	width:500px;
 	height:350px;
-	padding:70px 85px;
-	positon:absolute;  
+	margin-top: 70px;
+	margin-left: 130px
+
 }
 #login_picture img{
 	display:block;
-	width:500px;
+	width:400px;
 	height:200px;
-	positon:absolute;
+	
 	float:left;   	
 }
 #login_form {
 	width: 320px;
 	height: 200px;
-	margin:0 auto;
-	padding:26px 5px;
+	padding-left:80px;
 	position: absolute;
 	top: 90px;
 	right: 70px;
@@ -49,6 +48,7 @@ body{
 	font-size:16px;	
 }
 #login_form input{
+	width:140px;
 	height:38px;
 }
 #c1{

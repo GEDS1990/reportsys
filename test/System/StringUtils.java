@@ -47,4 +47,10 @@ public class StringUtils {
 		
 		ArrayList<Object> year = new ArrayList<>();
 	}
+	
+	@Test
+	public void strContains(){
+		String string = "123,456,222";
+		
+	}
 }

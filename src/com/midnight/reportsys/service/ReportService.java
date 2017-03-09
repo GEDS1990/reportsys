@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.midnight.reportsys.dto.ReportDTO;
 import com.midnight.reportsys.pojo.Report;
 
 public interface ReportService {
@@ -15,7 +16,7 @@ public interface ReportService {
 	String saveFileupload(MultipartFile url, String type) throws Exception;
 
 	// 获取报表列表
-	List<Report> getReportList(int intPage, int number, String type, int userId) throws Exception;
+	List<ReportDTO> getReportList(int intPage, int number, String type, int userId) throws Exception;
 
 	// 获取报表数量
 	int getReportCount(String type, int userId) throws Exception;

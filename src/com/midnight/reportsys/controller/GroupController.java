@@ -119,6 +119,7 @@ public class GroupController {
 
 			String name = groups.getName();
 			String[] leaders = groups.getLeader().split(",");
+			
 			String[] members = groups.getMember().split(",");
 			String[] groupsDTO = new String[leaders.length + members.length + 1];
 			groupsDTO[0] = name;
@@ -149,7 +150,13 @@ public class GroupController {
 					g.setDaily("<a href=\"statistics/memberStatistics/daily"  + "?id=" + g.getId() + "\">日报表分析</a>");
 					g.setWeekly("<a href=\"statistics/memberStatistics/weekly"  + "?id=" + g.getId() + "\">周报表分析</a>");
 				}
-				gDtos.add(g);
+			
+				for(int k=0; k<leaders.length; k++){
+					if(leaders[k].equals(user.getUsername())){
+						gDtos.add(g);
+					}
+				}
+				
 			}
 
 		}

@@ -62,7 +62,7 @@
 	<!-- 根据角色id获取所有资源 -->
 	<select id="getPermissionsByRoleId" parameterType="int"
 		resultType="permission">
-		select p.id,p.name,p.iconCls,p.url,p.pid from
+		select p.id,p.name,p.iconCls,p.url,p.pid,p.sort from
 		role
 		r,permission p ,role_permission rp
 		where r.id =#{roleId} and

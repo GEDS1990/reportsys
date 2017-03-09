@@ -94,7 +94,7 @@ overflow: auto; font-size: 20px; display: block; width: 201px; height: 100px !im
 		</div>
 
 		<div data-options="region:'west',split:true" title="导航菜单"
-			style="width: 208px; height: 800px" id="west">
+			style="width: 15%; height: 100%" id="west">
 
 
 
@@ -147,8 +147,8 @@ overflow: auto; font-size: 20px; display: block; width: 201px; height: 100px !im
 
 			<div id="tabs" class="easyui-tabs" fit="true" border="false">
 				<div title="系统公告"
-					style="width: 1150px; height: 800px" id="home">
-					<table class="easyui-datagrid" style="width: 1150px; height: 160px"
+					style="width: 85%; height: 20%" id="home">
+					<table class="easyui-datagrid" style="width:85%; height: 25%"
 						data-options="url:'notice/findNotice',fitColumns:true,singleSelect:true">
 						<thead>
 							<tr>
@@ -157,23 +157,24 @@ overflow: auto; font-size: 20px; display: block; width: 201px; height: 100px !im
 							</tr>
 						</thead>
 					</table>
-<hr />
-	<table class="easyui-datagrid" style="width: 1150px; height: 160px"
+<hr/>
+	<table class="easyui-datagrid" style="width: 85%; height: 43%"
 		data-options="url:'notice/getTemplate',fitColumns:true,singleSelect:true">
 		<thead>
 			<tr>
 				<th data-options="field:'name',width:350">名称</th>
 				<th data-options="field:'createTime',width:300">上传时间</th>
-				<th data-options="field:'downloadUrl',width:500">下载</th>
+				<th data-options="field:'downloadUrl',width:400">下载</th>
+				<th field="preview" width="180">查看</th>
 			</tr>
 		</thead>
 	</table>
 
 	<hr />
 	<c:if test="${sessionScope.admin != null }">
-	<div style="margin: 20px 0;"></div>
+
 	<div class="easyui-panel" title="上传模板文件"
-		style="width: 400px; padding: 10px 60px 20px 60px">
+		style="width: 85%; height: 32%">
 		<form id="ff" enctype="multipart/form-data" method="post">
 			<table cellpadding="5">
 				<p>文件不要超过5M</p>
@@ -186,7 +187,7 @@ overflow: auto; font-size: 20px; display: block; width: 201px; height: 100px !im
 
 			</table>
 		</form>
-		<div style="text-align: center; padding: 5px">
+		<div style="margin-left: 200px">
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				onclick="submitForm()">提交</a> <a href="javascript:void(0)"
 				class="easyui-linkbutton" onclick="clearForm()">清除</a>
@@ -194,7 +195,6 @@ overflow: auto; font-size: 20px; display: block; width: 201px; height: 100px !im
 	</div>
 	<br></br>
 	<br></br>
-<div style="margin:400px;"></div>
 
 
 	<script type="text/javascript">

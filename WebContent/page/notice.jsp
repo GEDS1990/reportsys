@@ -27,7 +27,7 @@
 
 </head>
 <body>
-	<table class="easyui-datagrid" style="width: 1150px; height: 160px"
+	<table class="easyui-datagrid" style="width: 85%; height: 20%"
 		data-options="url:'notice/findNotice',fitColumns:true,singleSelect:true">
 		<thead>
 			<tr>
@@ -38,22 +38,23 @@
 	</table>
 
 	<hr />
-	<table class="easyui-datagrid" style="width: 1150px; height: 160px"
+	<table class="easyui-datagrid" style="width:85%; height: 40%"
 		data-options="url:'notice/getTemplate',fitColumns:true,singleSelect:true">
 		<thead>
 			<tr>
 				<th data-options="field:'name',width:100">名称</th>
 				<th data-options="field:'createTime',width:240">上传时间</th>
 				<th data-options="field:'downloadUrl',width:100">下载</th>
+				<th field="preview" width="80">查看</th>
 			</tr>
 		</thead>
 	</table>
 
 	<hr />
 	<c:if test="${sessionScope.admin != null }">
-	<div style="margin: 20px 0;"></div>
+	
 	<div class="easyui-panel" title="上传模板文件"
-		style="width: 400px; padding: 10px 60px 20px 60px">
+		style="width: 85%; height: 40%">
 		<form id="ff" enctype="multipart/form-data" method="post">
 			<table cellpadding="5">
 				<p>文件不要超过5M</p>
@@ -66,7 +67,7 @@
 
 			</table>
 		</form>
-		<div style="text-align: center; padding: 5px">
+		<div style="text-align: center; ">
 			<a href="javascript:void(0)" class="easyui-linkbutton"
 				onclick="submitForm()">提交</a> <a href="javascript:void(0)"
 				class="easyui-linkbutton" onclick="clearForm()">清除</a>

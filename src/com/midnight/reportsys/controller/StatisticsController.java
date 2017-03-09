@@ -6,11 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.logging.log4j.core.helpers.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -21,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.pagehelper.PageHelper;
 import com.midnight.reportsys.dto.UserDTO;
+import com.midnight.reportsys.mapper.UserMapper;
 import com.midnight.reportsys.pojo.Report;
 import com.midnight.reportsys.pojo.Statistics;
 import com.midnight.reportsys.pojo.User;
@@ -32,7 +30,6 @@ import com.midnight.reportsys.util.DateTimeUtil;
 import com.midnight.reportsys.util.Tools;
 import com.midnight.reportsys.util.ValidateUtil;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
@@ -51,6 +48,7 @@ public class StatisticsController {
 	@Autowired
 	private UserService userService;
 
+	
 	@ResponseBody
 	@RequestMapping(value = "/getReportCount", method = RequestMethod.POST, produces = {
 			"application/json;charset=UTF-8" })
@@ -168,21 +166,15 @@ public class StatisticsController {
 	@RequestMapping(value = "/getMemberUserReport", method = RequestMethod.POST, produces = {
 			"application/json;charset=UTF-8" })
 	public String getMemberUserReport(int page, int rows) throws Exception {
-		//当前页
+	
 		int intPage = page == 0 ? 1 : page;
-		//每页显示条数
 		int number = rows == 0 ? 10 : rows;
-		//每页的开始记录  第一页为1  第二页为number +1   
-        int start = (intPage-1)*number;  
-       
+
 		Map<String, Object> jsonMap = new HashMap<>();
-		List<UserDTO> uDtos = userService.findMemberUser(intPage, number);
-		int total = uDtos.size();
+		List<UserDTO> list = userService.findMemberUser(intPage, number);
 		
-		List<UserDTO> subList = uDtos.subList(start,  ((number*intPage)>total?total:(number*intPage)));
-		
-		jsonMap.put("total", total);
-		jsonMap.put("rows", subList);
+		jsonMap.put("total", userService.findMemberUserCount());
+		jsonMap.put("rows", list);
 
 		JsonConfig jsonConfig = Tools.getJsonConfig();
 		// 排除不需要转换的字段new String[]{“id”，“name”}

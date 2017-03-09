@@ -73,7 +73,7 @@ public class Permission implements Comparable<Permission> {
 	@Override
 	public int compareTo(Permission o) {
 		
-		return this.getId()>o.getId()?1:(this.getId()<o.getId()?-1:0);
+		return this.getSort()>o.getSort()?1:(this.getSort()<o.getSort()?-1:0);
 	}
 
 	

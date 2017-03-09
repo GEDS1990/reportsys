@@ -27,9 +27,7 @@
 
 <body>
 
-
-
-	<table class="easyui-datagrid" style="width: 100%; height: 100%"
+<table class="easyui-datagrid" style="width: 100%; height: 25%"
 		data-options="url:'group/findMyGroups',fitColumns:true,singleSelect:true">
 		<thead>
 			<tr>
@@ -42,7 +40,18 @@
 	</table>
 
 
-	
+	<table class="easyui-datagrid" style="width: 100%; height: 75%"
+		data-options="url:'group/findMyGroupsReport',fitColumns:true,singleSelect:true">
+		<thead>
+			<tr>
+				<th data-options="field:'role',width:150"></th>
+				<th data-options="field:'name',width:200"></th>
+				<th data-options="field:'daily',width:200"></th>
+				<th data-options="field:'weekly',width:200"></th>
+			</tr>
+		</thead>
+
+	</table>
 </body>
 
 

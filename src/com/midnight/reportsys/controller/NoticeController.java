@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.midnight.reportsys.dto.ReportDTO;
 import com.midnight.reportsys.pojo.Notice;
-import com.midnight.reportsys.pojo.Report;
 import com.midnight.reportsys.service.NoticeService;
 import com.midnight.reportsys.service.ReportService;
 import com.midnight.reportsys.util.Tools;
@@ -66,7 +66,7 @@ public class NoticeController {
 
 		Map<String, Object> jsonMap = new HashMap<>();
 		// 获取模板就行，不需要分页参数
-		List<Report> lists = reportService.getReportList(1, 10, "template", 1);
+		List<ReportDTO> lists = reportService.getReportList(1, 10, "template", 1);
 		jsonMap.put("rows", lists);
 
 		JsonConfig jsonConfig = Tools.getJsonConfig();
