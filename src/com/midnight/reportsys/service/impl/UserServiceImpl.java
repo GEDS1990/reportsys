@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.midnight.reportsys.dto.UserDTO;
@@ -21,6 +22,7 @@ import com.sun.org.apache.regexp.internal.recompile;
  * 
  * @author Midnight
  */
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
 	@Autowired

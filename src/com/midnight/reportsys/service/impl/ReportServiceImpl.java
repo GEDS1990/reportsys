@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageHelper;
@@ -19,6 +20,7 @@ import com.midnight.reportsys.pojo.Report;
 import com.midnight.reportsys.service.ReportService;
 import com.midnight.reportsys.util.ValidateUtil;
 
+@Service("reportService")
 public class ReportServiceImpl implements ReportService {
 	@Autowired
 	private ReportMapper reportMapper;
@@ -205,6 +207,7 @@ public class ReportServiceImpl implements ReportService {
 		List<ReportDTO> reportDTOs = new ArrayList<>();
 		for (Report report : reports) {
 			ReportDTO rDTO = new ReportDTO();
+			rDTO.setId(report.getId());
 			rDTO.setName(report.getName());
 			rDTO.setCreateTime(report.getCreateTime());
 			rDTO.setDownloadUrl(report.getDownloadUrl());

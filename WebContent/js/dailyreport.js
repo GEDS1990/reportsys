@@ -1,6 +1,6 @@
 $(function() {
 
-	$('#tt').datagrid({
+	$('#dailyReport').datagrid({
 		url : 'report/getReportList/daily',
 		toolbar : '#tb',
 		pagination : true,
@@ -14,17 +14,21 @@ $(function() {
 
 });
 
-function deleteReport() {
-	var row = $('#tt').datagrid('getSelected');
+function deleteDailyReport() {
+	var row = $('#dailyReport').datagrid('getSelected');
+	
 	if (row) {
+		$.messager.alert("操作提示", row.id, "info");
 		$.messager.confirm('操作提示', '是否要删除数据?', function(r) {
+			
 			if (r) {
+				
 				$.post('report/deleteReport', {
 					'id' : row.id
 				}, function(data) {
 
 					if (data == true || data == 'true') {
-						$('#tt').datagrid('reload');
+						$('#dailyReport').datagrid('reload');
 						$.messager.alert("操作提示", "操作成功", "info");
 					} else {
 						$.messager.show({ // show error message

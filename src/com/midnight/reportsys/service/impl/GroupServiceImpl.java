@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.midnight.reportsys.mapper.GroupMapper;
@@ -12,7 +13,7 @@ import com.midnight.reportsys.pojo.Groups;
 import com.midnight.reportsys.pojo.User;
 import com.midnight.reportsys.service.GroupService;
 
-
+@Service("groupService")
 public class GroupServiceImpl implements GroupService{
 
 	@Autowired

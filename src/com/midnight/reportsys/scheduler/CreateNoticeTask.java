@@ -5,6 +5,7 @@ import java.util.Properties;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -18,13 +19,14 @@ import com.midnight.reportsys.util.DateTimeUtil;
  *
  */
 @Component
+@EnableScheduling
 public class CreateNoticeTask {
 	@Autowired
 	private NoticeService noticeService;
 	
 	
-	//每个周一、周二、周三、周四、周五的10：15触发 
-	@Scheduled(cron="0 15 8 ? * MON-FRI")
+	//每天的8：15触发 
+	//@Scheduled(cron="0 15 8 ? * *"  )
 	public void execute_dailyReport(){
 		try {
 			Properties pps = new Properties();

@@ -1,12 +1,18 @@
 package com.midnight.reportsys.util;
 
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
 
 public class DateTimeUtil {
 	public static String getDateAndTime() {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		return df.format(new Date());// new Date()为获取当前系统时间
+	}
+	public static String getTime() {
+		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//设置日期格式
 		return df.format(new Date());// new Date()为获取当前系统时间
 	}
 	public static String getDate() {
@@ -23,5 +29,8 @@ public class DateTimeUtil {
 		
 	}
 	
+	public static void main(String[] args){
+		
+	}
 	
 }

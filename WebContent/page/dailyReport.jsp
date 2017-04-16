@@ -20,7 +20,7 @@
 	src="jquery-easyui/js/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="jquery-easyui/js/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src='js/dailyreport.js'></script>
+
 
 </head>
 <body>
@@ -70,7 +70,7 @@
 						$.messager.progress('close');
 						clearForm();
 						if (data == true || data == 'true') {
-							$('#tt').datagrid('reload');
+							$('#dailyReport').datagrid('reload');
 							$.messager.alert('消息', '操作成功', 'info');
 
 						}
@@ -151,15 +151,16 @@
 
 
 
-	<table id="tt" style="width:100%; height: 400px">
+	<table id="dailyReport" style="width:100%; height: 400px">
 
 		<thead>
 			<tr>
-
+			
 				<th field="name" width="30%">名称</th>
 				<th field="createTime" width="30%">上传时间</th>
 				<th field="downloadUrl" width="20%">下载</th>
 				<th field="preview" width="20%">查看</th>
+				
 			</tr>
 		</thead>
 
@@ -168,11 +169,60 @@
 	<div id="tb">
 		<div>
 			<a class="easyui-linkbutton" iconCls="icon-remove" plain="true"
-				onclick="deleteReport()">删除报表</a>
+				onclick="deleteDailyReport()">删除报表</a>
 
 		</div>
 
 	</div>
+<script type="text/javascript">
+$(function() {
 
+	$('#dailyReport').datagrid({
+		url : 'report/getReportList/daily',
+		toolbar : '#tb',
+		pagination : true,
+		title : '报告列表',
+		fitColumns : false,
+		pagination : true,
+		iconCls : 'icon-save',
+		singleSelect : true,
+		pageList : [ 2, 5, 10, 15 ]
+	});
+
+});
+
+function deleteDailyReport() {
+	var row = $('#dailyReport').datagrid('getSelected');
+	
+	if (row) {
+		
+		$.messager.confirm('操作提示', '是否要删除数据?', function(r) {
+			
+			if (r) {
+				
+				$.post('report/deleteReport', {
+					'id' : row.id
+				}, function(data) {
+
+					if (data == true || data == 'true') {
+						$('#dailyReport').datagrid('reload');
+						$.messager.alert("操作提示", "操作成功", "info");
+					} else {
+						$.messager.show({ // show error message
+							title : 'info',
+							msg : '删除失败'
+						});
+					}
+				});
+			}
+		});
+
+	} else {
+		$.messager.alert("操作提示", "请选择要删除的报表", "error");
+	}
+
+	return true;
+}
+</script>
 </body>
 </html>

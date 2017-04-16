@@ -8,10 +8,12 @@ import java.io.PrintWriter;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
@@ -61,14 +63,32 @@ public class ReportController {
 		User user = (User) session.getAttribute("user");
 		if (user != null && reportUrl != null) {
 
-			// 获取截止时间，超过了截止时间就提交失败
-			Date deadline = reportService.getReportDeadline(type);
-			if (deadline != null) {
-				if (deadline.before(new Date())) {
+			if(type.equals("daily")){
+				Properties pps = new Properties();
+				InputStream in = this.getClass().getResourceAsStream("/resource.properties");
+				pps.load(in);
+
+				String s_date = DateTimeUtil.getDate();
+				String content = s_date +" "+ pps.getProperty("daily.deadline");
+			
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+				Date daily_deadline = df.parse(content);
+				
+				if (daily_deadline.before(new Date())) {
 					pw.write("deadline");
 					return;
 				}
+			}else {
+				// 获取截止时间，超过了截止时间就提交失败
+				Date deadline = reportService.getReportDeadline(type);
+				if (deadline != null) {
+					if (deadline.before(new Date())) {
+						pw.write("deadline");
+						return;
+					}
+				}
 			}
+			
 
 			// 将报表文件上传,然后获得一个新名称作为路径
 			String url = reportService.saveFileupload(reportUrl, type);
@@ -132,7 +152,7 @@ public class ReportController {
 		jsonConfig.setExcludes(new String[] { "type", "userId" });
 
 		JSONObject jsonObject = JSONObject.fromObject(jsonMap, jsonConfig);
-
+		
 		return jsonObject.toString();
 	}
 
